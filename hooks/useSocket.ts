@@ -6,7 +6,7 @@ const ADDRESS = process.env.EXPO_PUBLIC_SOCKET_ADDRESS
 
 export default () => {
 
-    const [data, setData] = useState('None');
+    const [data, setData] = useState({modules: []});
   
     useEffect(() => {
         const socket = dgram.createSocket({type:'udp4', debug: true});

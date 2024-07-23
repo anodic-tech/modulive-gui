@@ -13,7 +13,9 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>{data}</Text>
+      <Text>
+        {JSON.stringify(data)}
+      </Text>
     </View>
   );
 }
