@@ -14,8 +14,8 @@ declare module 'tls' {
 type ModuliveData = {
     modules: Module[],
     active_module: {
-        A: ActiveModule | 'None',
-        B: ActiveModule | 'None',
+        X: ActiveModule | 'None',
+        Y: ActiveModule | 'None',
     }
 }
 
@@ -26,13 +26,13 @@ type Module = {
   
   type ActiveModule = {
     name: string,
-    color_index: number
+    color_index: string
     sections: (Section|'None')[]
   }
   
   type Section = {
     name: string,
-    color_index: number,
+    color_index: string,
     is_playing: boolean,
     is_triggered: boolean
   }

@@ -1,16 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ColorValue, StyleSheet, Text, View } from "react-native";
 import * as ScreenOrientation from 'expo-screen-orientation';
 import useSocket from "@/hooks/useSocket";
 import useOrientationLock from "@/hooks/useOrientationLock";
-import { ReactElement } from "react";
-
 export default function Index() {
 
   const data = useSocket()
   useOrientationLock(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
-
-
-  console.log(data)
 
   return (
     <View
@@ -24,8 +19,8 @@ export default function Index() {
       {/* <Text>
         {JSON.stringify(data)}
       </Text> */}
-      <DisplayArea modules={data.modules} activeModule={data.active_module.A} name={"A"}/>
-      <DisplayArea modules={data.modules} activeModule={data.active_module.B} name={"B"}/>
+      <DisplayArea modules={data.modules} activeModule={data.active_module.X} name={"X"}/>
+      <DisplayArea modules={data.modules} activeModule={data.active_module.Y} name={"Y"}/>
     </View>
   );
 }
@@ -39,7 +34,7 @@ const DisplayArea = ({modules, activeModule, name}:{modules:Module[], activeModu
       buttons.push(<Button key={name+i}>
         <SectionButtonDisplay section={activeModule.sections[i] as Section}/>
       </Button>)
-    } else if(modules[i]){
+    } else if(activeModule === 'None' && modules[i]){
       buttons.push(<Button key={name+i}>
         <ModuleButtonDisplay module={modules[i]}/>
       </Button>)
@@ -51,7 +46,7 @@ const DisplayArea = ({modules, activeModule, name}:{modules:Module[], activeModu
 
   return (
     <View>
-      <Text>{activeModule!='None' ? activeModule.name : 'Select a Module'}</Text>
+      <Text>{name}: {activeModule!='None' ? activeModule.name : 'Select a Module'}</Text>
       <View style={styles.displayAreaContainer}>
         {buttons.map(b=>b)}
       </View>
@@ -67,7 +62,10 @@ const Button = ({children}:{children?:React.JSX.Element}) => {
 
 const ModuleButtonDisplay = ({module}:{module:Module}) => {
   return (
-    <View>
+    <View style={{
+      ...styles.buttonDisplay,
+      backgroundColor: colorMap[module.color_index]
+      }}>
       <Text>{module.name}</Text>
     </View>
   )
@@ -75,7 +73,10 @@ const ModuleButtonDisplay = ({module}:{module:Module}) => {
 
 const SectionButtonDisplay = ({section}:{section:Section}) => {
   return (
-    <View>
+    <View style={{
+      ...styles.buttonDisplay,
+      backgroundColor: colorMap[section.color_index]
+      }}>
       <Text>{section.name}</Text>
     </View>
   )
@@ -100,10 +101,29 @@ const styles = StyleSheet.create({
   },
   button: {
     height: 100,
-    backgroundColor: 'green',
     borderWidth: 1,
     borderColor: 'black',
     borderStyle: 'solid',
-    width: '25%'
+    width: '25%',
+    backgroundColor: 'darkgrey'
+  },
+  buttonDisplay: {
+    height: '100%',
+    width: '100%'
   }
 })
+
+const colorMap:{[key: string]:ColorValue} = {
+  "0": "black",
+  "1": "orange",
+  "9": "blue",
+  "12": "pink",
+  "13": "grey",
+  "20": "teal",
+  "24": "purple",
+  "28": "red",
+  "39": "lavender",
+  "56": "red",
+  "59": "gold",
+  "61": "green"
+}

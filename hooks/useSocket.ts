@@ -4,7 +4,7 @@ import TcpSocket from 'react-native-tcp-socket';
 
 export default () => {
 
-    const [data, setData] = useState({modules: [], active_module: {A: 'None', B: 'None'}} as ModuliveData);
+    const [data, setData] = useState({modules: [], active_module: {X: 'None', Y: 'None'}} as ModuliveData);
 
     useEffect(() => {
 
