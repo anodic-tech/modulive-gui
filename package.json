@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently --kill-others \"node ./scripts/udp-to-tcp\" \"expo start --android\"",
+    "start": "concurrently --kill-others \"node ./scripts/udp-to-tcp\" \"expo start --localhost --android\"",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
@@ -37,7 +37,8 @@
     "react-native-screens": "3.31.1",
     "react-native-tcp-socket": "^6.2.0",
     "react-native-web": "~0.19.10",
-    "serialport": "^12.0.0"
+    "serialport": "^12.0.0",
+    "expo-screen-orientation": "~7.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -10,3 +10,29 @@ declare module 'tls' {
     export const connect = TcpSockets.connectTLS;
     export const createServer = TcpSockets.createTLSServer;
 }
+
+type ModuliveData = {
+    modules: Module[],
+    active_module: {
+        A: ActiveModule | 'None',
+        B: ActiveModule | 'None',
+    }
+}
+
+type Module = {
+    name: string,
+    color_index: number
+  }
+  
+  type ActiveModule = {
+    name: string,
+    color_index: number
+    sections: (Section|'None')[]
+  }
+  
+  type Section = {
+    name: string,
+    color_index: number,
+    is_playing: boolean,
+    is_triggered: boolean
+  }
