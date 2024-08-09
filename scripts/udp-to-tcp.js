@@ -25,6 +25,7 @@ const checkAndStartADBServer = (callback) => {
                 callback();
             });
         } else {
+            closeApp();
             callback();
         }
     });
@@ -51,6 +52,17 @@ const removePortForwarding = () => {
         console.log(`Port forwarding removed for TCP port ${TCP_PORT}.`);
     });
 };
+
+
+// Close Application
+const closeApp = () => {
+    exec(`adb shell am force-stop com.justinanodic.modulivegui`, (err) => {
+        if (err) {
+            console.error('Failed close app', err);
+        }
+        console.log(`Closed application.`);
+    });
+}
 
 // Create and manage UDP and TCP sockets
 const manageSockets = () => {
@@ -129,6 +141,7 @@ const manageSockets = () => {
             tcpClient.end();
         }
         removePortForwarding();
+        closeApp();
         process.exit();
     });
 };
