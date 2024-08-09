@@ -24,16 +24,15 @@ const ModuleDisplay = ({modules, activeModule, name}:{modules:Module[], activeMo
           key={name+i}
           text={module.name}
           bgColor={colorIndexMap[module.color_index]}
-          animationType={'DIM'}
+          animationType={'BRIGHT'}
         />)
       }
-
 
       else{
         buttons.push(<Button 
           key={name+i}
           text={""}
-          bgColor={"none"}
+          bgColor={"transparent"}
           animationType={"NONE"}  
         />)
       }

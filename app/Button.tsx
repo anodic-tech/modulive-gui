@@ -7,9 +7,13 @@ const Button = ({bgColor,text,animationType}:{bgColor:ColorValue,text:string,ani
 
   const getBackground = () => {
     if (animationType === 'BRIGHT'){
-      return <AnimatedBackground from={0.2} to={0} duration={1600}/>
+      return       <View
+      style={{
+        ...styles.buttonBackground,
+        opacity: 0
+    }}/>
     }else if (animationType === 'FLASHING'){
-      return <AnimatedBackground from={0.5} to={0.2} duration={1600}/>
+      return <AnimatedBackground from={0.5} to={0} duration={1600}/>
     }
     else return (
       <View
@@ -35,7 +39,7 @@ const Button = ({bgColor,text,animationType}:{bgColor:ColorValue,text:string,ani
 
 const AnimatedBackground = ({from, to, duration}:{from: number, to: number, duration: number}) => {
 
-  const fadeAnim = useRef(new Animated.Value(0)).current; 
+  const fadeAnim = useRef(new Animated.Value(1)).current; 
 
   useEffect(() => {
       const animation = Animated.loop(
@@ -43,18 +47,19 @@ const AnimatedBackground = ({from, to, duration}:{from: number, to: number, dura
           Animated.timing(fadeAnim, {
             toValue: 0,
             duration,
-            useNativeDriver: true,
-            easing: Easing.linear
+            useNativeDriver: true
           }),
           Animated.timing(fadeAnim, {
             toValue: 1,
             duration,
-            useNativeDriver: true,
-            easing: Easing.linear
+            useNativeDriver: true
           }),
         ]),
       )
       animation.start();
+      return () => {
+        animation.reset();
+      }
   }, [])
 
   const interpolated = fadeAnim.interpolate({
