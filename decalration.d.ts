@@ -14,9 +14,10 @@ declare module 'tls' {
 type ModuliveData = {
     modules: Module[],
     active_module: {
-        X: ActiveModule | 'None',
-        Y: ActiveModule | 'None',
-    }
+        X: ActiveModule | null,
+        Y: ActiveModule | null,
+    },
+    xfade: number
 }
 
 type Module = {
@@ -27,7 +28,8 @@ type Module = {
   type ActiveModule = {
     name: string,
     color_index: string
-    sections: (Section|'None')[]
+    sections: (Section|null)[]
+    params: (Param|null)[]
   }
   
   type Section = {
@@ -35,4 +37,10 @@ type Module = {
     color_index: string,
     is_playing: boolean,
     is_triggered: boolean
+  }
+
+  type Param = {
+    name: string,
+    color_index: string,
+    value: string
   }

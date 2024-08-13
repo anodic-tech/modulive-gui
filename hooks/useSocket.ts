@@ -4,7 +4,7 @@ import TcpSocket from 'react-native-tcp-socket';
 
 export default () => {
 
-    const [data, setData] = useState({modules: [], active_module: {X: 'None', Y: 'None'}} as ModuliveData);
+    const [data, setData] = useState({modules: [], active_module: {X: null, Y: null}, xfade: 63} as ModuliveData);
 
     useEffect(() => {
 
@@ -12,18 +12,26 @@ export default () => {
 
         const startServer = async () => {
 
+            console.log('create server')
+
             const PORT = Number(process.env.EXPO_PUBLIC_SOCKET_PORT) 
             const ADDRESS = await DeviceInfo.isEmulator() ? 
                 process.env.EXPO_PUBLIC_EMULATOR_SOCKET_ADDRESS as string:
                 process.env.EXPO_PUBLIC_SOCKET_ADDRESS as string
 
             server = TcpSocket.createServer((socket) => {
-
-                socket.on('data', (data) => {
-                    console.log(`Received message: ${data.toString()}`);
-                    const newData = JSON.parse(data.toString()).data;
-                    console.info('Message received', JSON.stringify(newData));
-                    setData(newData);
+                
+                socket.on('data', (rawData) => {
+                    console.log(`Received message: ${rawData.toString()}`);
+                    const newData = JSON.parse(rawData.toString()).data;
+                    // console.info('Message received', JSON.stringify(newData));
+                    setData((prevData) => {
+                        if (JSON.stringify(newData) === JSON.stringify(prevData)) {
+                            return prevData; // No state change
+                        } else {
+                            return newData; // Update state
+                        }
+                    });
                   });
                 
                   socket.on('error', (error) => {
@@ -52,7 +60,7 @@ export default () => {
         }
 
         return () => { server.close(); }
-    });
+    },[]);
 
     return data;
 

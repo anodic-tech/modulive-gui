@@ -14,12 +14,18 @@ const Button = ({bgColor,text,animationType}:{bgColor:ColorValue,text:string,ani
     }}/>
     }else if (animationType === 'FLASHING'){
       return <AnimatedBackground from={0.5} to={0} duration={1600}/>
+    } else if (animationType === 'DIM'){
+      return <View
+      style={{
+        ...styles.buttonBackground,
+        opacity: 0.5
+    }}/>
     }
     else return (
       <View
         style={{
           ...styles.buttonBackground,
-          opacity: 0.5
+          opacity: 0
       }}/>
     )
   }
@@ -79,20 +85,20 @@ const AnimatedBackground = ({from, to, duration}:{from: number, to: number, dura
 
 const styles = StyleSheet.create({
   button: {
-    height: 100,
     borderWidth: 1,
     borderColor: 'black',
     borderStyle: 'solid',
     width: '25%',
+    minHeight: '50%',
     backgroundColor: "rgb(50,50,50)"
   },
-  buttonDisplay: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    width: '100%'
-  },
+  // buttonDisplay: {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   height: '100%',
+  //   width: '100%'
+  // },
   buttonText: {
     zIndex: 1,
     paddingBottom: 10
