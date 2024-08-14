@@ -92,13 +92,6 @@ const styles = StyleSheet.create({
     minHeight: '50%',
     backgroundColor: "rgb(50,50,50)"
   },
-  // buttonDisplay: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   height: '100%',
-  //   width: '100%'
-  // },
   buttonText: {
     zIndex: 1,
     paddingBottom: 10

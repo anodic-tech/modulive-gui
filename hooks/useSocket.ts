@@ -4,7 +4,10 @@ import TcpSocket from 'react-native-tcp-socket';
 
 export default () => {
 
-    const [data, setData] = useState({modules: [], active_module: {X: null, Y: null}, xfade: 63} as ModuliveData);
+    const [data, setData] = useState({
+        modules: [], 
+        active_module: {X: null, Y: null},
+        xfade: 63} as ModuliveData);
 
     useEffect(() => {
 
@@ -22,16 +25,20 @@ export default () => {
             server = TcpSocket.createServer((socket) => {
                 
                 socket.on('data', (rawData) => {
-                    console.log(`Received message: ${rawData.toString()}`);
-                    const newData = JSON.parse(rawData.toString()).data;
-                    // console.info('Message received', JSON.stringify(newData));
-                    setData((prevData) => {
-                        if (JSON.stringify(newData) === JSON.stringify(prevData)) {
-                            return prevData; // No state change
-                        } else {
-                            return newData; // Update state
-                        }
-                    });
+                    try {
+                        console.log(`Received message: ${rawData.toString()}`);
+                        const newData = JSON.parse(rawData.toString()).data;
+                        // console.info('Message received', JSON.stringify(newData));
+                        setData((prevData) => {
+                            if (JSON.stringify(newData) === JSON.stringify(prevData)) {
+                                return prevData; // No state change
+                            } else {
+                                return newData; // Update state
+                            }
+                        });
+                    } catch(e) {
+                        console.error(e)
+                    }
                   });
                 
                   socket.on('error', (error) => {

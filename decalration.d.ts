@@ -28,11 +28,12 @@ type Module = {
   type ActiveModule = {
     name: string,
     color_index: string
-    sections: (Section|null)[]
+    sections: (Clip|null)[]
+    dynamic_clips: (Clip|null)[]
     params: (Param|null)[]
   }
   
-  type Section = {
+  type Clip = {
     name: string,
     color_index: string,
     is_playing: boolean,

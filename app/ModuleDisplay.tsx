@@ -18,21 +18,21 @@ const ModuleDisplay = ({modules, activeModule, name}:ModuleDisplayProps) => {
   const mvButtons = []
   for(let i=0; i<NUM_MVS; i++){
       mvButtons.push(<Button 
-        key={`mvbutton-${name+i}`}
+        key={`mv-${name+i}`}
         text={""}
         bgColor={"rgb(20,20,20)"}
         animationType={"NONE"}  
       />)
   }
 
-  const NUM_BUTTONS = 8
-  const buttons = []
-  for(let i=0; i<NUM_BUTTONS; i++){
+  const NUM_SECTIONS = 8
+  const sections = []
+  for(let i=0; i<NUM_SECTIONS; i++){
 
     if(activeModule != null && activeModule.sections[i] != null){
-      const section = activeModule.sections[i] as Section
-      buttons.push(<Button 
-        key={`button-${name+i}`}
+      const section = activeModule.sections[i] as Clip
+      sections.push(<Button 
+        key={`section-${name+i}`}
         text={section.name}
         bgColor={colorIndexMap[section.color_index]}
         animationType={section.is_playing ? 'BRIGHT' : section.is_triggered ? 'FLASHING' : 'DIM'}
@@ -41,8 +41,8 @@ const ModuleDisplay = ({modules, activeModule, name}:ModuleDisplayProps) => {
     
     else if(activeModule === null && modules[i]){
       const module = modules[i]
-      buttons.push(<Button 
-        key={`button-${name+i}`}
+      sections.push(<Button 
+        key={`section-${name+i}`}
         text={module.name}
         bgColor={colorIndexMap[module.color_index]}
         animationType={'BRIGHT'}
@@ -50,8 +50,43 @@ const ModuleDisplay = ({modules, activeModule, name}:ModuleDisplayProps) => {
     }
 
     else{
-      buttons.push(<Button 
-        key={`button-${name+i}`}
+      sections.push(<Button 
+        key={`section-${name+i}`}
+        text={""}
+        bgColor={"rgb(20,20,20)"}
+        animationType={"NONE"}  
+      />)
+    }
+    
+  }
+
+  const NUM_DYNAMIC_CLIPS = 8
+  const clips = []
+  for(let i=0; i<NUM_DYNAMIC_CLIPS; i++){
+
+    if(activeModule != null && activeModule.dynamic_clips[i] != null){
+      const clip = activeModule.dynamic_clips[i] as Clip
+      clips.push(<Button 
+        key={`clip-${name+i}`}
+        text={clip.name}
+        bgColor={colorIndexMap[clip.color_index]}
+        animationType={clip.is_playing ? 'BRIGHT' : clip.is_triggered ? 'FLASHING' : 'DIM'}
+      />)
+    } 
+    
+    else if(activeModule === null && modules[i+NUM_SECTIONS]){
+      const module = modules[i+NUM_SECTIONS]
+      clips.push(<Button 
+        key={`clip-${name+i}`}
+        text={module.name}
+        bgColor={colorIndexMap[module.color_index]}
+        animationType={'BRIGHT'}
+      />)
+    }
+
+    else{
+      clips.push(<Button 
+        key={`clip-${name+i}`}
         text={""}
         bgColor={"rgb(20,20,20)"}
         animationType={"NONE"}  
@@ -95,10 +130,10 @@ const ModuleDisplay = ({modules, activeModule, name}:ModuleDisplayProps) => {
             {mvButtons.map(b=>b)}
           </View>
           <View style={{...styles.moduleDisplayContainer, flex:2, flexGrow: 2}}>
-            {buttons.map(b=>b)}
+            {sections.map(b=>b)}
           </View>
           <View style={{...styles.moduleDisplayContainer, flex:2, flexGrow: 2}}>
-            {buttons.map(b=>b)}
+            {clips.map(c=>c)}
           </View>
         </View>
         <View style={{...styles.moduleRowBox, flex: 1, flexGrow: 1}}>
