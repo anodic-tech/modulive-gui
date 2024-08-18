@@ -3,7 +3,14 @@ import { ColorValue, Animated, View, StyleSheet, Text, Easing } from "react-nati
 
 type AnimationType = 'NONE'|'DIM'|'BRIGHT'|'FLASHING'
 
-const Button = ({bgColor,text,animationType}:{bgColor:ColorValue,text:string,animationType:AnimationType}) => {
+type ButtonProps = {
+  bgColor:ColorValue,
+  text:string,
+  animationType:AnimationType,
+  value?:string
+}
+
+const Button = ({bgColor,text,animationType,value}:ButtonProps) => {
 
   const getBackground = () => {
     if (animationType === 'BRIGHT'){
@@ -38,6 +45,7 @@ const Button = ({bgColor,text,animationType}:{bgColor:ColorValue,text:string,ani
       <Text
         style={styles.buttonText}
       >{text}</Text>
+      {value != null && <Text style={styles.buttonText}>{value}</Text>}
       {getBackground()}
     </View>
   )

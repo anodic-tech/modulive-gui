@@ -30,6 +30,7 @@ type Module = {
     color_index: string
     sections: (Clip|null)[]
     dynamic_clips: (Clip|null)[]
+    macro_variations: (MacroVariation|null)[]
     params: (Param|null)[]
   }
   
@@ -44,4 +45,11 @@ type Module = {
     name: string,
     color_index: string,
     value: string
+  }
+
+  type MacroVariation = {
+    name: string,
+    color_index: string,
+    value: string,
+    is_active: boolean
   }

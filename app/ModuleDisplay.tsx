@@ -17,12 +17,23 @@ const ModuleDisplay = ({modules, activeModule, name}:ModuleDisplayProps) => {
   const NUM_MVS = 4
   const mvButtons = []
   for(let i=0; i<NUM_MVS; i++){
-      mvButtons.push(<Button 
+    if(activeModule != null && activeModule.macro_variations[i] != null){
+      const mv = activeModule.macro_variations[i] as MacroVariation
+      mvButtons.push(<Button
         key={`mv-${name+i}`}
+        text={mv.name}
+        bgColor={colorIndexMap[mv.color_index]}
+        animationType={mv.is_active? 'BRIGHT' : 'DIM'}
+        value={mv.value}  
+      />)
+    } else {
+      mvButtons.push(<Button
+        key={`mv-${i}`}
         text={""}
         bgColor={"rgb(20,20,20)"}
-        animationType={"NONE"}  
+        animationType={'NONE'}
       />)
+    }
   }
 
   const NUM_SECTIONS = 8
