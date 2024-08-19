@@ -7,10 +7,12 @@ type ButtonProps = {
   bgColor:ColorValue,
   text:string,
   animationType:AnimationType,
-  value?:string
+  value?:number|string|null
 }
 
 const Button = ({bgColor,text,animationType,value}:ButtonProps) => {
+
+  console.log('rerender')
 
   const getBackground = () => {
     if (animationType === 'BRIGHT'){

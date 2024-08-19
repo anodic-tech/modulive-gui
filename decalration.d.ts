@@ -17,7 +17,8 @@ type ModuliveData = {
         X: ActiveModule | null,
         Y: ActiveModule | null,
     },
-    xfade: number
+    xfade: number,
+    variation_knob: number
 }
 
 type Module = {
@@ -50,6 +51,5 @@ type Module = {
   type MacroVariation = {
     name: string,
     color_index: string,
-    value: string,
     is_active: boolean
   }

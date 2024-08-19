@@ -7,12 +7,13 @@ import { memo } from "react"
 type ModuleDisplayProps = {
   modules:Module[], 
   activeModule:ActiveModule|null, 
-  name: string
+  name: string,
+  variationKnob: number
 }
 
-const ModuleDisplay = ({modules, activeModule, name}:ModuleDisplayProps) => {
 
-  console.log('rerender')
+//TODO: Fix performance
+const ModuleDisplay = ({modules, activeModule, name, variationKnob}:ModuleDisplayProps) => {
 
   const NUM_MVS = 4
   const mvButtons = []
@@ -24,7 +25,7 @@ const ModuleDisplay = ({modules, activeModule, name}:ModuleDisplayProps) => {
         text={mv.name}
         bgColor={colorIndexMap[mv.color_index]}
         animationType={mv.is_active? 'BRIGHT' : 'DIM'}
-        value={mv.value}  
+        value={mv.is_active ? variationKnob: null}  
       />)
     } else {
       mvButtons.push(<Button
@@ -167,7 +168,6 @@ const styles = StyleSheet.create({
   },
   moduleColumnBox: {
     display: 'flex',
-    // justifyContent: 'space-between',
     gap: 15,
     flexGrow: 1,
     flex: 1
@@ -178,7 +178,6 @@ const styles = StyleSheet.create({
     gap: 15,
     alignItems: 'center',
     justifyContent: 'space-between',
-    // flexWrap: 'wrap',
     flex: 1,
     flexShrink: 1,
     flexGrow: 1,
@@ -187,8 +186,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // borderWidth: 1,
-    // borderColor: 'rgb(30,70,30)',
     alignContent: 'stretch',
     flexGrow: 1
   },
@@ -204,7 +201,8 @@ const arePropsEqual = (prevProps:ModuleDisplayProps, nextProps:ModuleDisplayProp
   return (
     prevProps.name === nextProps.name &&
     JSON.stringify(prevProps.activeModule) == JSON.stringify(nextProps.activeModule) &&
-    JSON.stringify(prevProps.modules) == JSON.stringify(nextProps.modules)
+    JSON.stringify(prevProps.modules) == JSON.stringify(nextProps.modules) &&
+    prevProps.variationKnob === nextProps.variationKnob
   );
 };
 

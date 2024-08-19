@@ -6,14 +6,16 @@ import ModuleDisplay from "./ModuleDisplay";
 import Fader from "./Fader";
 export default function Index() {
 
+  //TODO: Add linter
+
   const data = useSocket()
   useOrientationLock(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
 
   return (
     <View style={styles.container}>
       <View style={styles.moduleContainer}>
-        <ModuleDisplay modules={data.modules} activeModule={data.active_module.X} name={"X"}/>
-        <ModuleDisplay modules={data.modules} activeModule={data.active_module.Y} name={"Y"}/>
+        <ModuleDisplay modules={data.modules} activeModule={data.active_module.X} name={"X"} variationKnob={data.variation_knob}/>
+        <ModuleDisplay modules={data.modules} activeModule={data.active_module.Y} name={"Y"} variationKnob={data.variation_knob}/>
       </View>
       <View style={styles.mainContainer}>
         <Fader value={(data.xfade+1)*50}/>

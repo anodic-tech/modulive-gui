@@ -7,7 +7,8 @@ export default () => {
     const [data, setData] = useState({
         modules: [], 
         active_module: {X: null, Y: null},
-        xfade: 63} as ModuliveData);
+        xfade: 63,
+        variation_knob: 0} as ModuliveData);
 
     useEffect(() => {
 
@@ -26,7 +27,7 @@ export default () => {
                 
                 socket.on('data', (rawData) => {
                     try {
-                        console.log(`Received message: ${rawData.toString()}`);
+                        // console.log(`Received message: ${rawData.toString()}`);
                         const newData = JSON.parse(rawData.toString()).data;
                         // console.info('Message received', JSON.stringify(newData));
                         setData((prevData) => {
