@@ -130,12 +130,9 @@ const ModuleDisplay = ({modules, activeModule, name, variationKnob}:ModuleDispla
 
   return (
     <View
-      style={{
-        ...styles.container,
-        borderColor: activeModule!=null ? colorIndexMap[activeModule.color_index] : 'rgb(30,30,30)',
-      }}
-    >
-      <Text style={styles.moduleDisplayHeader}> {name}: {activeModule!=null? activeModule.name : 'Select a Module'}</Text>
+      style={styles.container}>
+      <Text style={{...styles.moduleDisplayHeader, 
+        borderColor: activeModule!=null ? colorIndexMap[activeModule.color_index] : 'rgb(30,30,30)'}}> {name}: {activeModule!=null? activeModule.name : 'Select a Module'}</Text>
       <View style={{...styles.moduleColumnBox, flexDirection: name === 'X' ? 'row' : 'row-reverse'}}>
         <View style={{...styles.moduleRowBox, flex:2, flexGrow: 2}}>
           <View style={{...styles.moduleDisplayContainer, flex:1, flexGrow: 1}}>
@@ -160,7 +157,6 @@ const ModuleDisplay = ({modules, activeModule, name, variationKnob}:ModuleDispla
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
@@ -191,7 +187,8 @@ const styles = StyleSheet.create({
   },
   moduleDisplayHeader: {
     color: "rgb(200,200,200)",
-    fontSize: 20
+    fontSize: 20,
+    borderWidth: 2
   },
 })
 

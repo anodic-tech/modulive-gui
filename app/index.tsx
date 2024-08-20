@@ -16,6 +16,9 @@ export default function Index() {
       <View style={styles.moduleContainer}>
         <ModuleDisplay modules={data.modules} activeModule={data.active_module.X} name={"X"} variationKnob={data.variation_knob}/>
         <ModuleDisplay modules={data.modules} activeModule={data.active_module.Y} name={"Y"} variationKnob={data.variation_knob}/>
+        <View style={styles.tempoContainer}>
+          <Text style={styles.tempoText}>{Math.floor(data.tempo)}</Text>
+        </View>
       </View>
       <View style={styles.mainContainer}>
         <Fader value={(data.xfade+1)*50}/>
@@ -30,6 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexGrow: 1,
     padding: 15,
+    paddingTop: 30,
     gap: 15,
     backgroundColor: "rgb(30,30,30)"
   },
@@ -45,5 +49,15 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     height: 40
+  },
+  tempoContainer: {
+    position: 'absolute',
+    top: '85%',
+    width: '100%'
+  },
+  tempoText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 22
   }
 })

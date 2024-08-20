@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { ColorValue, View, StyleSheet, Text } from "react-native";
 
 const Encoder = ({bgColor,text,value}:{bgColor:ColorValue,text:string,value:string}) => {
@@ -8,7 +9,7 @@ const Encoder = ({bgColor,text,value}:{bgColor:ColorValue,text:string,value:stri
             backgroundColor: bgColor,
         }}>
             <Text style={styles.encoderText}>{text}</Text>
-            <Text style={styles.encoderText}>{value}</Text>
+            {value !== "" && <Text style={{...styles.encoderText, ...styles.encoderValue}}>{Math.round(parseFloat(value))}</Text>}
         </View>
     )
 }
@@ -20,12 +21,20 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderStyle: 'solid',
         width: '50%',
-        backgroundColor: "rgb(50,50,50)"
+        backgroundColor: "rgb(50,50,50)",
+        display: 'flex',
+        justifyContent: 'center'
       },
       encoderText: {
         zIndex: 1,
-        paddingBottom: 10
+        paddingBottom: 10,
+        textAlign: 'center',
+        fontWeight: '600'
+      },
+      encoderValue: {
+        fontSize: 20
       }
+
 })
 
-export default Encoder
+export default memo(Encoder)

@@ -8,7 +8,8 @@ export default () => {
         modules: [], 
         active_module: {X: null, Y: null},
         xfade: 63,
-        variation_knob: 0} as ModuliveData);
+        variation_knob: 0,
+        tempo: 0} as ModuliveData);
 
     useEffect(() => {
 
@@ -38,7 +39,7 @@ export default () => {
                             }
                         });
                     } catch(e) {
-                        console.error(e)
+                        console.log(e)
                     }
                   });
                 

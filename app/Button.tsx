@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, memo } from "react";
 import { ColorValue, Animated, View, StyleSheet, Text, Easing } from "react-native";
 
 type AnimationType = 'NONE'|'DIM'|'BRIGHT'|'FLASHING'
@@ -100,11 +100,15 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     width: '25%',
     minHeight: '50%',
-    backgroundColor: "rgb(50,50,50)"
+    backgroundColor: "rgb(50,50,50)",
+    display: 'flex',
+    justifyContent: 'center'
   },
   buttonText: {
     zIndex: 1,
-    paddingBottom: 10
+    paddingBottom: 10,
+    textAlign: 'center',
+    fontWeight: '600'
   },
   buttonBackground: {
     position: 'absolute',
@@ -115,4 +119,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Button
+export default memo(Button)

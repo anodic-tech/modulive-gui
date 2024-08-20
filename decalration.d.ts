@@ -18,7 +18,8 @@ type ModuliveData = {
         Y: ActiveModule | null,
     },
     xfade: number,
-    variation_knob: number
+    variation_knob: number,
+    tempo: number
 }
 
 type Module = {
