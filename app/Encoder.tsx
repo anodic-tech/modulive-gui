@@ -8,7 +8,7 @@ const Encoder = ({bgColor,text,value}:{bgColor:ColorValue,text:string,value:stri
             ...styles.encoder,
             backgroundColor: bgColor,
         }}>
-            <Text style={styles.encoderText}>{text}</Text>
+            <Text style={styles.encoderText}>{text.replace('_',' ')}</Text>
             {value !== "" && <Text style={{...styles.encoderText, ...styles.encoderValue}}>{Math.round(parseFloat(value))}</Text>}
         </View>
     )

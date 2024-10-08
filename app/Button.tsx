@@ -46,7 +46,7 @@ const Button = ({bgColor,text,animationType,value}:ButtonProps) => {
       }}>
       <Text
         style={styles.buttonText}
-      >{text}</Text>
+      >{text.replace('_',' ')}</Text>
       {value != null && <Text style={styles.buttonText}>{value}</Text>}
       {getBackground()}
     </View>
