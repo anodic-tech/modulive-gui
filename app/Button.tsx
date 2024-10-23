@@ -1,81 +1,79 @@
 import { useRef, useEffect, memo } from "react";
 import { ColorValue, Animated, View, StyleSheet, Text, Easing } from "react-native";
 
-type AnimationType = 'NONE'|'DIM'|'BRIGHT'|'FLASHING'
+type AnimationType = 'NONE' | 'DIM' | 'BRIGHT' | 'FLASHING'
 
 type ButtonProps = {
-  bgColor:ColorValue,
-  text:string,
-  animationType:AnimationType,
-  value?:number|string|null
+  bgColor: ColorValue,
+  text: string,
+  animationType: AnimationType,
+  value?: number | string | null
 }
 
-const Button = ({bgColor,text,animationType,value}:ButtonProps) => {
-
-  console.log('rerender')
+const Button = ({ bgColor, text, animationType, value }: ButtonProps) => {
 
   const getBackground = () => {
-    if (animationType === 'BRIGHT'){
-      return       <View
-      style={{
-        ...styles.buttonBackground,
-        opacity: 0
-    }}/>
-    }else if (animationType === 'FLASHING'){
-      return <AnimatedBackground from={0.5} to={0} duration={1600}/>
-    } else if (animationType === 'DIM'){
+    if (animationType === 'BRIGHT') {
       return <View
-      style={{
-        ...styles.buttonBackground,
-        opacity: 0.5
-    }}/>
+        style={{
+          ...styles.buttonBackground,
+          opacity: 0
+        }} />
+    } else if (animationType === 'FLASHING') {
+      return <AnimatedBackground from={0.5} to={0} duration={1600} />
+    } else if (animationType === 'DIM') {
+      return <View
+        style={{
+          ...styles.buttonBackground,
+          opacity: 0.5
+        }} />
     }
     else return (
       <View
         style={{
           ...styles.buttonBackground,
           opacity: 0
-      }}/>
+        }} />
     )
   }
 
   return (
     <View style={{
-        ...styles.button,
-        backgroundColor: bgColor,
-      }}>
+      ...styles.button,
+      backgroundColor: bgColor,
+    }}>
       <Text
         style={styles.buttonText}
-      >{text.replace('_',' ')}</Text>
+      >{text.replace('_', ' ')}</Text>
       {value != null && <Text style={styles.buttonText}>{value}</Text>}
       {getBackground()}
     </View>
   )
 }
 
-const AnimatedBackground = ({from, to, duration}:{from: number, to: number, duration: number}) => {
+const AnimatedBackground = ({ from, to, duration }: { from: number, to: number, duration: number }) => {
 
-  const fadeAnim = useRef(new Animated.Value(1)).current; 
+  const fadeAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-      const animation = Animated.loop(
-        Animated.sequence([
-          Animated.timing(fadeAnim, {
-            toValue: 0,
-            duration,
-            useNativeDriver: true
-          }),
-          Animated.timing(fadeAnim, {
-            toValue: 1,
-            duration,
-            useNativeDriver: true
-          }),
-        ]),
-      )
-      animation.start();
-      return () => {
-        animation.reset();
-      }
+    const animation = Animated.loop(
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration,
+          useNativeDriver: true
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration,
+          useNativeDriver: true
+        }),
+      ]),
+    )
+    animation.start();
+    return () => {
+      animation.reset();
+    }
   }, [])
 
   const interpolated = fadeAnim.interpolate({
@@ -88,7 +86,7 @@ const AnimatedBackground = ({from, to, duration}:{from: number, to: number, dura
       style={{
         ...styles.buttonBackground,
         opacity: interpolated
-    }}/>
+      }} />
   )
 
 }

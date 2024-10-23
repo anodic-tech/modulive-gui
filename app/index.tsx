@@ -1,27 +1,33 @@
-import { View, StyleSheet, Text } from "react-native"
+import { View, StyleSheet, Text, Platform } from "react-native"
 import * as ScreenOrientation from 'expo-screen-orientation';
 import useSocket from "@/hooks/useSocket";
 import useOrientationLock from "@/hooks/useOrientationLock";
 import ModuleDisplay from "./ModuleDisplay";
 import Fader from "./Fader";
+import useWebhook from "@/hooks/useWebhook";
 export default function Index() {
 
   //TODO: Add linter
 
-  const data = useSocket()
-  useOrientationLock(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
+  let data
+  if (Platform.OS === 'android') {
+    data = useSocket()
+    useOrientationLock(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
+  } else {
+    data = useWebhook()
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.moduleContainer}>
-        <ModuleDisplay modules={data.modules} activeModule={data.active_module.X} name={"X"} variationKnob={data.variation_knob}/>
-        <ModuleDisplay modules={data.modules} activeModule={data.active_module.Y} name={"Y"} variationKnob={data.variation_knob}/>
+        <ModuleDisplay modules={data.modules} activeModule={data.active_module.X} name={"X"} variationKnob={data.variation_knob} />
+        <ModuleDisplay modules={data.modules} activeModule={data.active_module.Y} name={"Y"} variationKnob={data.variation_knob} />
         <View style={styles.tempoContainer}>
           <Text style={styles.tempoText}>{Math.floor(data.tempo)}</Text>
         </View>
       </View>
       <View style={styles.mainContainer}>
-        <Fader value={(data.xfade+1)*50}/>
+        <Fader value={(data.xfade + 1) * 50} />
       </View>
     </View>
   );

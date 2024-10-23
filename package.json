@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "concurrently --kill-others --handle-input \"node ./scripts/udp-to-tcp\" -i \"expo start --localhost --android\"",
+    "start-web": "concurrently --kill-others --handle-input \"node ./scripts/udp-to-tcp-web\" -i \"expo start --localhost --web\"",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo run:android",
     "ios": "expo run:ios",
