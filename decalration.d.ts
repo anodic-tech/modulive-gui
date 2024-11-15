@@ -40,7 +40,10 @@ type Module = {
     name: string,
     color_index: string,
     is_playing: boolean,
-    is_triggered: boolean
+    is_triggered: boolean,
+    length?: number,
+    position?: number,
+    looping?: boolean
   }
 
   type Param = {

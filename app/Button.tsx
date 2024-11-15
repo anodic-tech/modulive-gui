@@ -7,10 +7,11 @@ type ButtonProps = {
   bgColor: ColorValue,
   text: string,
   animationType: AnimationType,
-  value?: number | string | null
+  value?: number | string | null,
+  highlight?: boolean
 }
 
-const Button = ({ bgColor, text, animationType, value }: ButtonProps) => {
+const Button = ({ bgColor, text, animationType, value, highlight }: ButtonProps) => {
 
   const getBackground = () => {
     if (animationType === 'BRIGHT') {
@@ -41,6 +42,7 @@ const Button = ({ bgColor, text, animationType, value }: ButtonProps) => {
     <View style={{
       ...styles.button,
       backgroundColor: bgColor,
+      borderColor: highlight ? 'red' : 'black'
     }}>
       <Text
         style={styles.buttonText}

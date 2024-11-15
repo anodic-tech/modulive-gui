@@ -48,6 +48,8 @@ const ModuleDisplay = ({modules, activeModule, name, variationKnob}:ModuleDispla
         text={section.name}
         bgColor={colorIndexMap[section.color_index]}
         animationType={section.is_playing ? 'BRIGHT' : section.is_triggered ? 'FLASHING' : 'DIM'}
+        value={(section.is_playing ? `${section.position}/` : '') + `${section.length}${section.looping ? ' L' : ''}`}
+        highlight={section.is_playing}
       />)
     } 
     
@@ -183,7 +185,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignContent: 'stretch',
-    flexGrow: 1
+    flexGrow: 1,
+    width: '100%'
   },
   moduleDisplayHeader: {
     color: "rgb(200,200,200)",
